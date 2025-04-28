@@ -1,11 +1,10 @@
 #include "Game.h"
-#include "LevelState.h"
 #include <memory>
 
 Game::Game()
 {
     initWindow();
-    gsm.push(std::make_unique<LevelState>(*window, gsm, 1));
+    gsm.push(std::make_unique<MenuState>(*window, gsm));
 }
 
 Game::~Game()

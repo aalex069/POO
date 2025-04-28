@@ -1,17 +1,16 @@
 #include "Fonts.h"
 
-void Fonts::initFonts(std::string address)
+void Fonts::initFonts(const std::string &address)
 {
     if (!this->openFromFile(address))
     {
-        std::cerr << "ERROR::FONTS::INIFONTS::COULD NOT LOAD FILE" << address << std::endl;
+        throw FontLoadException(address);
     }
     this->setSmooth(false);
 }
 
-Fonts::Fonts(std::string address)
+Fonts::Fonts(const std::string &address)
 {
-
     initFonts(address);
 }
 

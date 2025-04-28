@@ -1,33 +1,16 @@
 #include "Texts.h"
+#include <sstream>
 
-void Texts::initFont(std::string font_adress)
+Texts::Texts(const std::string &str, const sf::Font &font)
+    : sf::Text(font, str, 30) // setezi default character size 30
 {
-    fonts = new Fonts(font_adress);
-    this->setFont(*fonts);
+    this->setFillColor(sf::Color::White);
 }
 
-void Texts::initString(std::string str)
+void Texts::streamText(const std::string &prefix, float var, const sf::Vector2f &pos)
 {
-    originalStr = str;
-    this->setString(originalStr);
-}
-
-Texts::Texts(std::string str, std::string font_address) : sf::Text(*fonts)
-{
-    initFont(font_address);
-    initString(str);
-}
-
-Texts::~Texts()
-{
-    delete fonts;
-}
-
-void Texts::streamText(std::string str, float var, const sf::Vector2f &pos)
-{
-    std::stringstream sStream;
-    sStream << str << var;
-
-    this->setString(sStream.str());
+    std::stringstream ss;
+    ss << prefix << var;
+    this->setString(ss.str());
     this->setPosition(pos);
 }

@@ -35,6 +35,7 @@ private:
     } jump;
 
 public:
+    static constexpr float gravity = 980.f;
     Player(const sf::Vector2f &pos = sf::Vector2f(100.f, 100.f));
 
     void update(float dt) override;

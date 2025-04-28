@@ -5,7 +5,9 @@
 #include "Player.h"
 #include "StaticObject.h"
 #include "Platform.h"
+#include "MenuState.h"
 #include "GameStateManager.h"
+#include "LevelState.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <optional>

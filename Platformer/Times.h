@@ -1,4 +1,5 @@
 #pragma once
+#include "Texts.h"
 #include <SFML/Graphics.hpp>
 
 class Times

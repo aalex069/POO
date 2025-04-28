@@ -1,19 +1,10 @@
 #pragma once
-#include "Fonts.h"
-#include <sstream>
+#include <SFML/Graphics.hpp>
+#include <string>
 
 class Texts : public sf::Text
 {
-private:
-    std::string originalStr;
-    Fonts *fonts;
-
-    void initFont(std::string font_adress);
-    void initString(std::string str);
-
 public:
-    Texts(std::string str, std::string font_address);
-    ~Texts();
-
-    void streamText(const std::string str, float var, const sf::Vector2f &pos);
+    Texts(const std::string &str, const sf::Font &font);
+    void streamText(const std::string &prefix, float var, const sf::Vector2f &pos);
 };

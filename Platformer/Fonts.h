@@ -1,14 +1,15 @@
 #pragma once
+#include "GameException.h"
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <SFML/Graphics.hpp>
 
 class Fonts : public sf::Font
 {
 private:
-    void initFonts(std::string address);
+    void initFonts(const std::string &address);
 
 public:
-    Fonts(std::string address);
+    Fonts(const std::string &address);
     ~Fonts();
 };

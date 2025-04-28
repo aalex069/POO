@@ -11,7 +11,6 @@ void Player::update(float dt)
 {
     previousPosition = shape.getPosition();
 
-    const float gravity = 980.f;
     if (!onGround)
         velocity.y += gravity * dt;
 
