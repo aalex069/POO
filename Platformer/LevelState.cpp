@@ -1,5 +1,6 @@
 #include "LevelState.h"
 
+// Creez nivelul precizat
 LevelState::LevelState(sf::RenderWindow &win, GameStateManager &gsmRef, int level)
     : window(win), gsm(gsmRef), player(sf::Vector2f(100.f, 100.f)), levelIndex(level), font("Fonts/Roboto-Black.ttf")
 {
@@ -31,6 +32,7 @@ LevelState::LevelState(sf::RenderWindow &win, GameStateManager &gsmRef, int leve
     healthText->setPosition({10.f, 50.f});
 }
 
+// Daca ies din ecran in partea dreapta, trec la urmatorul nivel
 void LevelState::update(float dt)
 {
     player.setOnGround(false);

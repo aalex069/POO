@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 
+// Contine toate nivelurile si logica care schimba intre diferite niveluri si GameEndState
 class LevelState : public GameState
 {
 private:

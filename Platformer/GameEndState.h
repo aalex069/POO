@@ -5,6 +5,7 @@
 #include "Texts.h"
 #include "LevelState.h"
 
+// Reprezinta ecranul de final, care poate avea afisat orice mesaj dat ca parametru
 class GameEndState : public GameState
 {
 private:

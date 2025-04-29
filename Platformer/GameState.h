@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+// Clasa virtuala pe care sunt bazate starile jocului: MenuState, LevelState si GameEndState
 class GameState
 {
 public:

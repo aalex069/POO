@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "StaticObject.h"
 
+// Gesioneaza proprietatile si actiunile jucatorului, care sunt
+// explicate mai in detaliu in README
 class Player : public Entity
 {
 private:

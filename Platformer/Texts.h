@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+// Este folosita pentru textul jocului
 class Texts : public sf::Text
 {
 public:

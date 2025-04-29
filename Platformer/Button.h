@@ -3,6 +3,8 @@
 #include "Texts.h"
 #include "Fonts.h"
 
+// Clasa aceasta ar putea fi considerat ca este in plus, dar fara sa adaug "butoane" nu am reusit sa fac
+// meniul principal sa mearga, si m-am gandit ca asta ar fi o solutie buna
 class Button
 {
 private:

@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <variant>
 
+// Aici doar rulez jocul si verific 3 tipuri de erori: cele pe care le am definit eu in GameException, cele de tip std::exception
+// si orice alte erori care nu sunt de tipurile mentionate precedent
 int main()
 {
     try
@@ -13,13 +15,17 @@ int main()
     }
     catch (const GameException &e)
     {
-        std::cerr << "Eroare din joc: " << e.what() << std::endl;
+        std::cerr << "Game error: " << e.what() << std::endl;
         return 1;
     }
     catch (const std::exception &e)
     {
-        std::cerr << "Alta eroare: " << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         return 2;
+    }
+    catch (...)
+    {
+        std::cerr << "Unexpected error" << std::endl;
     }
 
     return 0;

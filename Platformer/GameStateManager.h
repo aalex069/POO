@@ -3,6 +3,7 @@
 #include <stack>
 #include <memory>
 
+// Cu ajutorul acestei cclase se schimba intre starile jocului (clasele de tip GameState)
 class GameStateManager
 {
 private:

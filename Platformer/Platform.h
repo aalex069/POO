@@ -1,6 +1,7 @@
 #pragma once
 #include "StaticObject.h"
 
+// Un obiect static in forma de dreptunghi care are coliziuni cu jucatorul
 class Platform : public StaticObject
 {
 private:

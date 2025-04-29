@@ -11,8 +11,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <optional>
-#include <string.h>
+#include <string>
 
+// Aici sunt incluse toate clasele din proiect si este rulat jocul propriu zis
 class Game
 {
 private:

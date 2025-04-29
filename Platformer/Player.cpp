@@ -43,9 +43,10 @@ void Player::update(float dt)
     position = shape.getPosition();
 }
 
+// In cazul in care jucatorul este pe o platforma sau a sarit in aer, acesta poate sari
 void Player::handleJump(float dt)
 {
-    if ((onGround || jump.count < jump.max) &&
+    if ((onGround || (jump.count < jump.max && jump.count > 0)) &&
         (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) ||
          sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space)))
     {
@@ -62,7 +63,10 @@ void Player::handleJump(float dt)
         jump.pressedLastFrame = false;
     }
 }
-
+// Dash-ruile se dau cu dublu click pe A sau pe D, de aceea aici
+// se verica daca A sau D au fost apasate de 2 ori succesiv, si
+// se mai verifica si daca dash-ul abia a fost folosit si trebuie
+// asteptat pana la urmatoarea utilizare
 void Player::handleDash(float dt)
 {
     float currentTime = dash.inputClock.getElapsedTime().asSeconds();
@@ -175,7 +179,9 @@ void Player::setPosition(const sf::Vector2f &pos)
     shape.setPosition(pos);
     position = pos;
 }
-
+// Coliziunea cu platformele, se verifica daca in frame-ul trecut jucatorul
+// era deasupra platformei si ca in frameul curent este sub platforma, ceea ce
+// inseamna ca jucatorul a ajuns pe platforma si trebuie sa ramana pe ea
 void Player::handleCollision(const std::vector<std::unique_ptr<StaticObject>> &platforms)
 {
     sf::FloatRect pBounds = getBounds();

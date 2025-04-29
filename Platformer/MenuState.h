@@ -6,6 +6,7 @@
 #include "LevelState.h"
 #include <vector>
 
+// Meniul prinipal
 class MenuState : public GameState
 {
 private:
