@@ -38,6 +38,7 @@ private:
 
 public:
     static constexpr float gravity = 980.f;
+    static constexpr float dashSpeed = 750.f;
     Player(const sf::Vector2f &pos = sf::Vector2f(100.f, 100.f));
 
     void update(float dt) override;

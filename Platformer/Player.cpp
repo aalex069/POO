@@ -19,7 +19,6 @@ void Player::update(float dt)
 
     if (dash.active)
     {
-        const float dashSpeed = 750.f;
         velocity.x = dash.direction * dashSpeed;
         velocity.y = 0.f;
 
