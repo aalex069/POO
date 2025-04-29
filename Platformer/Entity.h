@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
+// Clasa de baza pentru obiectele dinamice, are doar Player ca clasa derivata, dar
+// s-ar putea baza pe ea si alte entitati dinamice
 class Entity
 {
 protected:
