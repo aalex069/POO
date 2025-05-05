@@ -4,7 +4,7 @@
 Game::Game()
 {
     initWindow();
-    gsm.push(std::make_unique<MenuState>(*window, gsm));
+    gsm.push(std::make_unique<MenuState>(*window, gsm, 0));
 }
 
 Game::~Game()

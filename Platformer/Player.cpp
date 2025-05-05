@@ -1,15 +1,20 @@
 #include "Player.h"
 
-Player::Player(const sf::Vector2f &pos) : Entity(pos)
+sf::Texture Player::texture;
+
+Player::Player(const sf::Vector2f &pos) : Entity(pos), sprite(texture)
 {
-    shape.setSize({50.f, 50.f});
-    shape.setFillColor(sf::Color::Blue);
-    shape.setPosition(position);
+    if (!texture.loadFromFile("Assets/player.png"))
+        throw ResourceLoadException("Assets/player.png");
+
+    sprite.setTexture(texture);
+    sprite.setPosition(pos);
+    sprite.setScale({0.1f, 0.1f});
 }
 
 void Player::update(float dt)
 {
-    previousPosition = shape.getPosition();
+    previousPosition = sprite.getPosition();
 
     if (!onGround)
         velocity.y += gravity * dt;
@@ -38,8 +43,8 @@ void Player::update(float dt)
             velocity.x = 0.f;
     }
 
-    shape.move(velocity * dt);
-    position = shape.getPosition();
+    sprite.move(velocity * dt);
+    position = sprite.getPosition();
 }
 
 // In cazul in care jucatorul este pe o platforma sau a sarit in aer, acesta poate sari
@@ -117,12 +122,12 @@ void Player::handleDash(float dt)
 
 void Player::render(sf::RenderWindow &window) const
 {
-    window.draw(shape);
+    window.draw(sprite);
 }
 
 sf::FloatRect Player::getBounds() const
 {
-    return shape.getGlobalBounds();
+    return sprite.getGlobalBounds();
 }
 
 std::unique_ptr<Entity> Player::clone() const
@@ -142,10 +147,20 @@ float Player::getVelocityY() const
     return velocity.y;
 }
 
+void Player::setPositionX(float x)
+{
+    sprite.setPosition({x, sprite.getPosition().y});
+    position.x = x;
+}
 void Player::setPositionY(float y)
 {
-    shape.setPosition({shape.getPosition().x, y});
+    sprite.setPosition({sprite.getPosition().x, y});
     position.y = y;
+}
+
+void Player::setVelocityX(float x)
+{
+    velocity.x = x;
 }
 
 void Player::setVelocityY(float y)
@@ -165,7 +180,7 @@ bool Player::getGroundState() const
 
 void Player::saveGroundedPosition()
 {
-    lastGroundedPosition = shape.getPosition();
+    lastGroundedPosition = sprite.getPosition();
 }
 
 sf::Vector2f Player::getLastGroundedPosition() const
@@ -175,12 +190,10 @@ sf::Vector2f Player::getLastGroundedPosition() const
 
 void Player::setPosition(const sf::Vector2f &pos)
 {
-    shape.setPosition(pos);
+    sprite.setPosition(pos);
     position = pos;
 }
-// Coliziunea cu platformele, se verifica daca in frame-ul trecut jucatorul
-// era deasupra platformei si ca in frameul curent este sub platforma, ceea ce
-// inseamna ca jucatorul a ajuns pe platforma si trebuie sa ramana pe ea
+// Coliziunea cu platformele
 void Player::handleCollision(const std::vector<std::unique_ptr<StaticObject>> &platforms)
 {
     sf::FloatRect pBounds = getBounds();
@@ -191,19 +204,47 @@ void Player::handleCollision(const std::vector<std::unique_ptr<StaticObject>> &p
 
         if (pBounds.findIntersection(oBounds))
         {
-            float playerBottom = pBounds.position.y + pBounds.size.y;
-            float platformTop = oBounds.position.y;
-            float prevBottom = previousPosition.y + pBounds.size.y;
+            float playerCenterX = pBounds.position.x + pBounds.size.x / 2.f;
+            float playerCenterY = pBounds.position.y + pBounds.size.y / 2.f;
+            float objectCenterX = oBounds.position.x + oBounds.size.x / 2.f;
+            float objectCenterY = oBounds.position.y + oBounds.size.y / 2.f;
 
-            if (prevBottom <= platformTop && playerBottom >= platformTop &&
-                velocity.y >= 0.f && pBounds.findIntersection(oBounds))
+            float dx = playerCenterX - objectCenterX;
+            float dy = playerCenterY - objectCenterY;
+
+            float overlapX = (pBounds.size.x / 2.f + oBounds.size.x / 2.f) - std::abs(dx);
+            float overlapY = (pBounds.size.y / 2.f + oBounds.size.y / 2.f) - std::abs(dy);
+
+            if (overlapX < overlapY)
             {
-                setOnGround(true);
-                setVelocityY(0.f);
-                setPositionY(platformTop - pBounds.size.y);
-                saveGroundedPosition();
-                pBounds = getBounds();
+                // Coliziune pe orizontala
+                if (dx > 0)
+                    setPositionX(pBounds.position.x + overlapX); // din dreapta
+                else
+                    setPositionX(pBounds.position.x - overlapX); // din stanga
+
+                setVelocityX(0.f);
             }
+            else
+            {
+                // Coliziune pe verticala
+                if (dy > 0)
+                {
+                    // Lovitura de jos
+                    setPositionY(pBounds.position.y + overlapY);
+                    setVelocityY(0.f);
+                }
+                else
+                {
+                    // Aterizare pe platforma
+                    setPositionY(pBounds.position.y - overlapY);
+                    setVelocityY(0.f);
+                    setOnGround(true);
+                    saveGroundedPosition();
+                }
+            }
+
+            pBounds = getBounds();
         }
     }
 }
@@ -215,11 +256,26 @@ void Player::checkFallOutOfBounds(float windowHeight)
         setVelocityY(0.f);
         setOnGround(false);
         setPosition(getLastGroundedPosition());
-        health -= 10;
+        hasJustFallen = true;
     }
 }
 
 int Player::getHealth() const
 {
     return health;
+}
+
+void Player::decreaseHealth(int amount)
+{
+    health -= amount;
+}
+
+bool Player::getHasJustFallen() const
+{
+    return hasJustFallen;
+}
+
+void Player::resetFallState()
+{
+    hasJustFallen = false;
 }

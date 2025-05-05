@@ -1,11 +1,11 @@
 #include "MenuState.h"
-
-MenuState::MenuState(sf::RenderWindow &win, GameStateManager &gsmRef)
-    : window(win), gsm(gsmRef), font("Fonts/Roboto-Black.ttf")
+#include "DifficultyState.h"
+MenuState::MenuState(sf::RenderWindow &win, GameStateManager &gsmRef, int diff)
+    : window(win), gsm(gsmRef), difficulty(diff), font("Fonts/Roboto-Black.ttf")
 {
     buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 200.f), "New Game", font);
-    buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 300.f), "Level Select", font);
-    buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 400.f), "Options", font);
+    buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 300.f), "Help", font);
+    buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 400.f), "Difficulty", font);
     buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 500.f), "Exit", font);
 }
 
@@ -51,14 +51,14 @@ void MenuState::handleEvent(const sf::Event &event)
                     switch (i)
                     {
                     case 0: // New Game
-                        gsm.change(std::make_unique<LevelState>(window, gsm, 1));
+                        gsm.change(std::make_unique<LevelState>(window, gsm, -1, 0, 0, difficulty));
                         return;
-                    case 1: // Level Select
-                        // LevelSelectState
-                        break;
-                    case 2: // Options
-                        // OptionsState
-                        break;
+                    case 1: // Help
+                        gsm.push(std::make_unique<HelpState>(window, gsm, difficulty));
+                        return;
+                    case 2: // Difficulty
+                        gsm.push(std::make_unique<DifficultyState>(window, gsm, *this));
+                        return;
                     case 3: // Exit
                         window.close();
                         break;
@@ -67,4 +67,9 @@ void MenuState::handleEvent(const sf::Event &event)
             }
         }
     }
+}
+
+void MenuState::setDifficulty(int diff)
+{
+    difficulty = diff;
 }

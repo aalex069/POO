@@ -1,18 +1,20 @@
 #pragma once
 #include "Entity.h"
 #include "StaticObject.h"
-
+#include "GameException.h"
 // Gesioneaza proprietatile si actiunile jucatorului, care sunt
 // explicate mai in detaliu in README
 class Player : public Entity
 {
 private:
-    sf::RectangleShape shape;
+    static sf::Texture texture;
+    sf::Sprite sprite;
     int health = 100;
 
     sf::Vector2f previousPosition;
     sf::Vector2f lastGroundedPosition;
     bool onGround = false;
+    bool hasJustFallen = false;
 
     struct Dash
     {
@@ -46,7 +48,9 @@ public:
 
     sf::FloatRect getBounds() const;
     sf::Vector2f getPreviousPosition() const;
+    void setPositionX(float x);
     void setPositionY(float y);
+    void setVelocityX(float x);
     void setVelocityY(float y);
     float getVelocityY() const;
     void setOnGround(bool value);
@@ -54,10 +58,13 @@ public:
     void handleCollision(const std::vector<std::unique_ptr<StaticObject>> &platforms);
     void checkFallOutOfBounds(float windowHeight);
     int getHealth() const;
+    void decreaseHealth(int amount);
 
     void saveGroundedPosition();
     sf::Vector2f getLastGroundedPosition() const;
     bool getGroundState() const;
+    bool getHasJustFallen() const;
+    void resetFallState();
 
     void handleDash(float dt);
     void handleJump(float dt);

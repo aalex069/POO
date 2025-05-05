@@ -4,7 +4,7 @@
 
 // Clasa GameException permite claselor derivate sa afisese ce mesaj de erroare
 // doresc in funtie de tipul erorii. Pe baza ei am implemenat erori de: font,
-// nivel si texturi(aceasta doar am declarat-o, pe moment nu este folosita nicaieri)
+// nivel si texturi
 class GameException : public std::exception
 {
 protected:

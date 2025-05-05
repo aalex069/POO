@@ -8,7 +8,7 @@ Jocul contine:
 		- Este afectat de gravitatie 
 		- Detecteaza si gestioneaza coliziuni cu obiecte statice (de tip StaticObject), în special platforme (de tip Platform)
 	- Un manager de stari care schimba intre:
-		- Meniu principal
+		- Meniu principal 
 		- Niveluri ale jocului
 		- Ecran de finalizare (victorie sau infrangere)
 
@@ -32,4 +32,6 @@ Respectarea cerintelor proiectului:
 Surse de documentatie:
 	- Pentru SFML m-am bazat pe documentatia oficiala
 	- Am mai cautat informatii despre STL pe internet, dar nu pot preciza o sursa propriu zisa
-	- Pentru conceptele de POO am consultat cursurile
+	- Pentru conceptele de POO am consultat cursurile si cateva forum-uri
+
+GitHub: https://github.com/aalex069/POO

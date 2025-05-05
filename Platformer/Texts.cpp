@@ -2,7 +2,7 @@
 #include <sstream>
 
 Texts::Texts(const std::string &str, const sf::Font &font)
-    : sf::Text(font, str, 30) // setezi default character size 30
+    : sf::Text(font, str, 30)
 {
     this->setFillColor(sf::Color::White);
 }

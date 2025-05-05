@@ -21,12 +21,23 @@ private:
     std::vector<std::unique_ptr<StaticObject>> platforms;
     std::unique_ptr<Texts> levelText;
     std::unique_ptr<Texts> healthText;
+    std::unique_ptr<Texts> scoreText;
+    std::unique_ptr<Texts> levelScoreText;
+    std::unique_ptr<Texts> timeText;
     int levelIndex;
     GameStateManager &gsm;
     Fonts font;
+    sf::Clock levelClock;
+    int finalScore;
+    const float maxTime = 120.f;
+    int totalScore;
+    int difficulty;
+    int accumulatedTime;
+    static sf::Texture backgroundTexture;
+    sf::Sprite background;
 
 public:
-    LevelState(sf::RenderWindow &win, GameStateManager &gsm, int level);
+    LevelState(sf::RenderWindow &win, GameStateManager &gsm, int level, int time, int score = 0, int diff = 0);
 
     void update(float dt) override;
     void render(sf::RenderWindow &window) override;

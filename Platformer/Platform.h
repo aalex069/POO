@@ -1,11 +1,12 @@
 #pragma once
 #include "StaticObject.h"
+#include "GameException.h"
 
-// Un obiect static in forma de dreptunghi care are coliziuni cu jucatorul
 class Platform : public StaticObject
 {
 private:
-    sf::RectangleShape shape;
+    static sf::Texture texture;
+    sf::Sprite sprite;
 
 public:
     Platform(const sf::Vector2f &size, const sf::Vector2f &position);
