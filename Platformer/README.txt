@@ -26,7 +26,7 @@ Respectarea cerintelor proiectului:
 	std::exception, cu throw în constructori și try/catch în main.
 	- Am folosit atribute statice acolo unde are sens, de exemplu pentru gravitatia care afecteaza jucatorul.
 	- STL este folosit extensiv (vectori, stringuri, optional, smart pointeri).
-	- Am folosit const peste tot unde este necesar, atât la parametrii funcțiilor cât și la metode (ex: const sf::RenderWindow&, float dt etc.).
+	- Am folosit const peste tot unde este necesar, atât la parametrii funcțiilor cât și la metode.
 	- Funcțiile principale sunt de nivel înalt (ex: update(), render(), handleEvent()) și am evitat folosirea de settere/gettere low-level inutile.
 
 Surse de documentatie:
