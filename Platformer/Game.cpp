@@ -4,7 +4,7 @@
 Game::Game()
 {
     initWindow();
-    gsm.push(std::make_unique<MenuState>(*window, gsm, 0));
+    GameStateManager::getInstance().push(std::make_unique<MenuState>(*window, 0));
 }
 
 Game::~Game()
@@ -35,8 +35,8 @@ void Game::pollEvents()
                 window->close();
         }
 
-        if (gsm.getCurrentState())
-            gsm.getCurrentState()->handleEvent(*event);
+        if (GameStateManager::getInstance().getCurrentState())
+            GameStateManager::getInstance().getCurrentState()->handleEvent(*event);
     }
 }
 
@@ -45,13 +45,13 @@ void Game::updating()
     pollEvents();
     times.update();
     float dt = times.getDeltaTime();
-    gsm.update(dt);
+    GameStateManager::getInstance().update(dt);
 }
 
 void Game::rendering()
 {
     window->clear();
-    gsm.render(*window);
+    GameStateManager::getInstance().render(*window);
     window->display();
 }
 

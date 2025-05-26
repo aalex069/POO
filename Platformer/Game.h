@@ -23,7 +23,6 @@ private:
     sf::VideoMode vm;
     sf::RenderWindow *window;
     Times times;
-    GameStateManager gsm;
 
     void initWindow();
     void pollEvents();

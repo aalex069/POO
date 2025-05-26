@@ -12,14 +12,13 @@ class MenuState : public GameState
 {
 private:
     sf::RenderWindow &window;
-    GameStateManager &gsm;
     Fonts font;
     std::vector<Button> buttons;
     int hoveredOption = -1;
     int difficulty = 0;
 
 public:
-    MenuState(sf::RenderWindow &window, GameStateManager &gsm, int diff);
+    MenuState(sf::RenderWindow &window, int diff);
 
     void setDifficulty(int diff);
     void update(float dt) override;

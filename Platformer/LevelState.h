@@ -8,9 +8,11 @@
 #include "Platform.h"
 #include "GameEndState.h"
 #include "GameStateManager.h"
-#include "GameException.h"
+#include "ObjectFactory.h"
 #include <vector>
 #include <memory>
+
+class FallPenaltyStrategy;
 
 // Contine toate nivelurile si logica care schimba intre diferite niveluri si GameEndState
 class LevelState : public GameState
@@ -19,13 +21,13 @@ private:
     sf::RenderWindow &window;
     Player player;
     std::vector<std::unique_ptr<StaticObject>> platforms;
-    std::unique_ptr<Texts> levelText;
-    std::unique_ptr<Texts> healthText;
-    std::unique_ptr<Texts> scoreText;
-    std::unique_ptr<Texts> levelScoreText;
-    std::unique_ptr<Texts> timeText;
+    std::unique_ptr<Texts<std::string>> levelText;
+    std::unique_ptr<Texts<std::string>> healthText;
+    std::unique_ptr<Texts<std::string>> scoreText;
+    std::unique_ptr<Texts<std::string>> levelScoreText;
+    std::unique_ptr<Texts<std::string>> timeText;
+    std::unique_ptr<FallPenaltyStrategy> fallStrategy;
     int levelIndex;
-    GameStateManager &gsm;
     Fonts font;
     sf::Clock levelClock;
     int finalScore;
@@ -37,7 +39,7 @@ private:
     sf::Sprite background;
 
 public:
-    LevelState(sf::RenderWindow &win, GameStateManager &gsm, int level, int time, int score = 0, int diff = 0);
+    LevelState(sf::RenderWindow &win, int level, int time, int score = 0, int diff = 0);
 
     void update(float dt) override;
     void render(sf::RenderWindow &window) override;

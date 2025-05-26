@@ -1,7 +1,7 @@
 #include "HelpState.h"
 
-HelpState::HelpState(sf::RenderWindow &win, GameStateManager &gsmRef, int diff)
-    : window(win), gsm(gsmRef), difficulty(diff), font("Fonts/Roboto-Black.ttf")
+HelpState::HelpState(sf::RenderWindow &win, int diff)
+    : window(win), difficulty(diff), font("Fonts/Roboto-Black.ttf")
 {
     std::string helpMessage =
         "CONTROALE:\n"
@@ -15,7 +15,8 @@ HelpState::HelpState(sf::RenderWindow &win, GameStateManager &gsmRef, int diff)
         "- Parcurge nivelurile pana la final cat de repede posibil si cu cat mai putine greseli\n\n"
         "Apasa ESC pentru a inchide jocul si ENTER in meniu pentru a te intoarce la pagina anterioara";
 
-    helpText = std::make_unique<Texts>(helpMessage, font);
+    helpText = std::make_unique<Texts<std::string>>(helpMessage, font);
+    helpText->setString(helpMessage);
     helpText->setCharacterSize(24);
     helpText->setFillColor(sf::Color::White);
     helpText->setPosition({50.f, 50.f});
@@ -34,7 +35,7 @@ void HelpState::handleEvent(const sf::Event &event)
     {
         if (key->scancode == sf::Keyboard::Scancode::Enter)
         {
-            gsm.pop();
+            GameStateManager::getInstance().pop();
         }
     }
 }

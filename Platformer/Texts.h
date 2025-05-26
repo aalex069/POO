@@ -1,11 +1,25 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <string>
 
 // Este folosita pentru textul jocului
+template <typename T>
 class Texts : public sf::Text
 {
+private:
+    T prefix;
+
 public:
-    Texts(const std::string &str, const sf::Font &font);
-    void streamText(const std::string &prefix, float var, const sf::Vector2f &pos);
+    Texts(const T &prefixValue, const sf::Font &font)
+        : sf::Text(font, "", 30), prefix(prefixValue)
+    {
+        this->setFillColor(sf::Color::White);
+    }
+
+    void streamText(float var, const sf::Vector2f &pos)
+    {
+        std::stringstream ss;
+        ss << prefix << var;
+        this->setString(ss.str());
+        this->setPosition(pos);
+    }
 };

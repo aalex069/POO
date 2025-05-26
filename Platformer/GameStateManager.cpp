@@ -42,3 +42,9 @@ void GameStateManager::render(sf::RenderWindow &window)
     if (auto *current = getCurrentState())
         current->render(window);
 }
+
+GameStateManager &GameStateManager::getInstance()
+{
+    static GameStateManager instance;
+    return instance;
+}

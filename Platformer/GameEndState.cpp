@@ -1,24 +1,26 @@
 #include "GameEndState.h"
 
-GameEndState::GameEndState(sf::RenderWindow &win, GameStateManager &gsmRef, const std::string &message, sf::Color color, int fin, int diff, int time)
-    : window(win), gsm(gsmRef), finalScore(fin), difficulty(diff), finalTime(time), font("Fonts/Roboto-Black.ttf")
+GameEndState::GameEndState(sf::RenderWindow &win, const std::string &message, sf::Color color, int fin, int diff, int time)
+    : window(win), finalScore(fin), difficulty(diff), finalTime(time), font("Fonts/Roboto-Black.ttf")
 {
-    endText = std::make_unique<Texts>(message, font);
+    endText = std::make_unique<Texts<std::string>>(message, font);
     endText->setCharacterSize(48);
+    endText->setString(message);
     endText->setFillColor(color);
     endText->setPosition({window.getSize().x / 2.f, window.getSize().y / 2.f});
     endText->setOrigin(endText->getGlobalBounds().size / 2.f);
     if (difficulty != 2)
     {
-        scoreText = std::make_unique<Texts>("Final Score: " + std::to_string(finalScore), font);
+        scoreText = std::make_unique<Texts<std::string>>("Final Score: ", font);
+        scoreText->streamText(finalScore, {window.getSize().x / 2.f, window.getSize().y / 2.f + 50.f});
     }
     else
     {
-        scoreText = std::make_unique<Texts>("Seconds Spent: " + std::to_string(finalTime), font);
+        scoreText = std::make_unique<Texts<std::string>>("Seconds Spent: ", font);
+        scoreText->streamText(finalTime, {window.getSize().x / 2.f, window.getSize().y / 2.f + 50.f});
     }
     scoreText->setCharacterSize(32);
     scoreText->setFillColor(color);
-    scoreText->setPosition({window.getSize().x / 2.f, window.getSize().y / 2.f + 50.f});
     scoreText->setOrigin(scoreText->getGlobalBounds().size / 2.f);
 }
 

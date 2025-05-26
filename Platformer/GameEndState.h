@@ -10,16 +10,15 @@ class GameEndState : public GameState
 {
 private:
     sf::RenderWindow &window;
-    GameStateManager &gsm;
-    std::unique_ptr<Texts> endText;
-    std::unique_ptr<Texts> scoreText;
+    std::unique_ptr<Texts<std::string>> endText;
+    std::unique_ptr<Texts<std::string>> scoreText;
     Fonts font;
     int finalScore;
     int difficulty;
     int finalTime;
 
 public:
-    GameEndState(sf::RenderWindow &window, GameStateManager &gsm, const std::string &message, sf::Color color, int fin, int diff, int time);
+    GameEndState(sf::RenderWindow &window, const std::string &message, sf::Color color, int fin, int diff, int time);
     void update(float dt) override;
     void render(sf::RenderWindow &window) override;
     void handleEvent(const sf::Event &event) override;

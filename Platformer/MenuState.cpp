@@ -1,7 +1,7 @@
 #include "MenuState.h"
 #include "DifficultyState.h"
-MenuState::MenuState(sf::RenderWindow &win, GameStateManager &gsmRef, int diff)
-    : window(win), gsm(gsmRef), difficulty(diff), font("Fonts/Roboto-Black.ttf")
+MenuState::MenuState(sf::RenderWindow &win, int diff)
+    : window(win), difficulty(diff), font("Fonts/Roboto-Black.ttf")
 {
     buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 200.f), "New Game", font);
     buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 300.f), "Help", font);
@@ -51,13 +51,13 @@ void MenuState::handleEvent(const sf::Event &event)
                     switch (i)
                     {
                     case 0: // New Game
-                        gsm.change(std::make_unique<LevelState>(window, gsm, -1, 0, 0, difficulty));
+                        GameStateManager::getInstance().change(std::make_unique<LevelState>(window, -1, 0, 0, difficulty));
                         return;
                     case 1: // Help
-                        gsm.push(std::make_unique<HelpState>(window, gsm, difficulty));
+                        GameStateManager::getInstance().push(std::make_unique<HelpState>(window, difficulty));
                         return;
                     case 2: // Difficulty
-                        gsm.push(std::make_unique<DifficultyState>(window, gsm, *this));
+                        GameStateManager::getInstance().push(std::make_unique<DifficultyState>(window, *this));
                         return;
                     case 3: // Exit
                         window.close();

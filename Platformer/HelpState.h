@@ -10,13 +10,12 @@ class HelpState : public GameState
 {
 private:
     sf::RenderWindow &window;
-    GameStateManager &gsm;
-    std::unique_ptr<Texts> helpText;
+    std::unique_ptr<Texts<std::string>> helpText;
     Fonts font;
     int difficulty;
 
 public:
-    HelpState(sf::RenderWindow &win, GameStateManager &gsm, int diff);
+    HelpState(sf::RenderWindow &win, int diff);
     void update(float dt) override;
     void render(sf::RenderWindow &target) override;
     void handleEvent(const sf::Event &event) override;

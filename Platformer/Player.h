@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "StaticObject.h"
 #include "GameException.h"
+
 // Gesioneaza proprietatile si actiunile jucatorului, care sunt
 // explicate mai in detaliu in README
 class Player : public Entity

@@ -9,7 +9,7 @@ class Button
 {
 private:
     sf::RectangleShape hitbox;
-    Texts text;
+    Texts<std::string> text;
 
 public:
     Button(const sf::Vector2f &size, const sf::Vector2f &position, const std::string &label, const Fonts &font);

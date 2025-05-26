@@ -14,7 +14,7 @@ Jocul contine:
 
 Am ales să nu descriu fiecare clasă direct în README, ci să pun comentarii în fișierele .h, unde sunt declarate clasele.
 
-Respectarea cerintelor proiectului:
+Respectarea cerintelor proiectului 2:
 	- Toate clasele sunt separate în .cpp și .h și nu am folosit nicăieri using namespace std.
 	- Din clasa GameState sunt derivate MenuState, LevelState și GameEndState.
 	- Entity (pentru obiecte dinamice), StaticObject (pentru obiecte statice) și GameState (pentru stările jocului) sunt clase virtuale și sunt 
@@ -28,6 +28,24 @@ Respectarea cerintelor proiectului:
 	- STL este folosit extensiv (vectori, stringuri, optional, smart pointeri).
 	- Am folosit const peste tot unde este necesar, atât la parametrii funcțiilor cât și la metode.
 	- Funcțiile principale sunt de nivel înalt (ex: update(), render(), handleEvent()) și am evitat folosirea de settere/gettere low-level inutile.
+
+Respectarea cerintelor proiectului 3:
+	- Am transformat clasa Texts într-o clasă șablon care acceptă orice tip convertibil la text.
+	- Am modificat metoda streamText, care acum generează textul ce urmează să fie afișat pe ecran, folosind un prefix (de tip T) și o valoare dinamică.
+	- ObjectFactory<T>::createObjectsForLevel(...) este o funcție șablon statică care creează obiecte în funcție de nivel.
+		- Funcția este specializată pentru:
+			- StaticObject
+			- Texts
+	- Design pattern-uri utilizate:
+		- Singleton: 
+			- GameStateManager este implementat ca singleton, permițând acces global la managerul de stări, fără a fi nevoie să fie transmis prin constructori.
+		- Factory: 
+			- ObjectFactory<T> este utilizată pentru a crea dinamic obiecte de tip StaticObject și Texts, în funcție de nivel și parametri.
+		- Strategy: 
+			- FallPenaltyStrategy cu 3 clase derivate: EasyPenalty, MediumPenalty și HardPenalty; acestea aplică o logică diferită de penalizare, în funcție de dificultatea jocului.
+		- State: 
+			- Am implementat o ierarhie de stări prin clasa abstractă GameState și clasele derivate MenuState, LevelState și GameEndState. GameStateManager comută între aceste 
+			stări în timpul execuției, permițând comportamente diferite pentru meniu, joc sau ecranul final, fără a modifica structura principală a codului.
 
 Surse de documentatie:
 	- Pentru SFML m-am bazat pe documentatia oficiala

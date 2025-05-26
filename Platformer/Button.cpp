@@ -8,8 +8,9 @@ Button::Button(const sf::Vector2f &size, const sf::Vector2f &position, const std
     hitbox.setPosition(position);
 
     text.setCharacterSize(32);
-    text.setOrigin(text.getGlobalBounds().size / 2.f);
+    text.setString(label);
     text.setPosition(position);
+    text.setOrigin(text.getGlobalBounds().size / 2.f);
 }
 
 void Button::render(sf::RenderWindow &target) const

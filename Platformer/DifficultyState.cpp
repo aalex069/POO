@@ -1,8 +1,8 @@
 #include "DifficultyState.h"
 #include "MenuState.h"
 
-DifficultyState::DifficultyState(sf::RenderWindow &win, GameStateManager &gsmRef, MenuState &menuRef)
-    : window(win), gsm(gsmRef), menu(menuRef), font("Fonts/Roboto-Black.ttf")
+DifficultyState::DifficultyState(sf::RenderWindow &win, MenuState &menuRef)
+    : window(win), menu(menuRef), font("Fonts/Roboto-Black.ttf")
 {
     buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 200.f), "Easy", font);
     buttons.emplace_back(sf::Vector2f(300.f, 60.f), sf::Vector2f(window.getSize().x / 2.f, 300.f), "Medium", font);
@@ -49,7 +49,7 @@ void DifficultyState::handleEvent(const sf::Event &event)
                 if (buttons[i].isHovered(window))
                 {
                     menu.setDifficulty(i);
-                    gsm.pop();
+                    GameStateManager::getInstance().pop();
                     return;
                 }
             }
